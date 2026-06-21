@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSphere - Admin Dashboard</title>
+  
+  <!-- Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Dashboard Sidebar -->
+    <aside class="dashboard-sidebar" id="dashboard-sidebar">
+      <div class="sidebar-brand">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <i class="bi bi-globe-americas me-2 text-primary"></i>
+          <span>JobSphere</span>
+        </a>
+      </div>
+      
+      <ul class="sidebar-menu p-0 m-0">
+        <li>
+          <a href="#" class="sidebar-link active" data-view="dashboard">
+            <i class="bi bi-speedometer2"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-view="users">
+            <i class="bi bi-people"></i>
+            <span>Users Management</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-view="jobs">
+            <i class="bi bi-briefcase"></i>
+            <span>Jobs Management</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-view="analytics">
+            <i class="bi bi-bar-chart"></i>
+            <span>Analytics</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-view="reports">
+            <i class="bi bi-file-earmark-bar-graph"></i>
+            <span>Reports</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-view="settings">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+      
+      <div class="mt-auto pt-3 border-top border-color d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+          <div class="company-logo-wrapper text-white bg-primary font-bold fs-7" id="admin-avatar-display" style="width: 38px; height: 38px;">AD</div>
+          <div>
+            <h6 class="fw-bold mb-0 fs-7 text-main" id="admin-name-display">Administrator</h6>
+            <span class="text-muted fs-9" id="admin-role-display">Main Admin</span>
+          </div>
+        </div>
+        
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <i class="bi bi-moon-stars-fill"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="dashboard-content">
+      
+      <!-- Top header bar -->
+      <header class="d-flex justify-content-between align-items-center mb-5 pb-3 border-bottom border-color">
+        <div class="d-flex align-items-center gap-3">
+          <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <div>
+            <span class="text-muted small">Admin Dashboard</span>
+            <h2 class="fw-bold text-main mb-0 h3">SaaS Control Center</h2>
+          </div>
+        </div>
+        <div>
+          <a href="index.html" class="btn btn-premium-secondary py-2 fs-7 me-2"><i class="bi bi-house me-2"></i>Portal Home</a>
+          <button class="btn btn-premium-primary py-2 fs-7" data-bs-toggle="modal" data-bs-target="#addJobModal"><i class="bi bi-plus-circle me-2"></i>New Job</button>
+        </div>
+      </header>
+
+      <!-- PANELS CONTAINER -->
+      
+      <!-- 1. DASHBOARD OVERVIEW PANEL -->
+      <div class="dashboard-view-panel" id="panel-dashboard">
+        <!-- Stats Widgets Grid -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-3 col-6">
+            <div class="glass-card p-4">
+              <span class="text-muted fs-8 d-block mb-1">Total Users</span>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-extrabold fs-3 text-main" id="admin-stat-users">0</span>
+                <i class="bi bi-people-fill text-primary fs-3"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="glass-card p-4">
+              <span class="text-muted fs-8 d-block mb-1">Total Listings</span>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-extrabold fs-3 text-main" id="admin-stat-jobs">0</span>
+                <i class="bi bi-briefcase-fill text-secondary fs-3"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="glass-card p-4">
+              <span class="text-muted fs-8 d-block mb-1">Applications</span>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-extrabold fs-3 text-main" id="admin-stat-apps">0</span>
+                <i class="bi bi-send-fill text-warning fs-3"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="glass-card p-4">
+              <span class="text-muted fs-8 d-block mb-1">Monthly Revenue</span>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-extrabold fs-3 text-main" id="admin-stat-revenue">0</span>
+                <i class="bi bi-currency-dollar text-success fs-3"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts row -->
+        <div class="row g-4 mb-4">
+          <div class="col-md-7">
+            <div class="glass-card p-4">
+              <h5 class="fw-bold mb-3 text-main">Applications Submissions Growth</h5>
+              <div style="height: 250px;">
+                <canvas id="adminAnalyticsLine"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="glass-card p-4">
+              <h5 class="fw-bold mb-3 text-main">Category Breakdown</h5>
+              <div style="height: 250px;">
+                <canvas id="adminAnalyticsPie"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="row">
+          <div class="col-12">
+            <div class="glass-card p-4">
+              <h5 class="fw-bold mb-4 text-main"><i class="bi bi-journal-text me-2 text-primary"></i>Global System Activity Logs</h5>
+              <div id="admin-timeline" class="ps-2">
+                <!-- Activity timeline list -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. USERS MANAGEMENT PANEL -->
+      <div class="dashboard-view-panel d-none" id="panel-users">
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h4 class="fw-bold text-main mb-1">Users Directory</h4>
+              <p class="text-muted fs-7 mb-0">Inspect and coordinate registration records.</p>
+            </div>
+            <button class="btn btn-premium-primary fs-7" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="bi bi-plus me-1"></i>Add Mock User</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover table-premium border-0 m-0">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Verification</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-table">
+                <!-- Dynamic rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. JOBS MANAGEMENT PANEL -->
+      <div class="dashboard-view-panel d-none" id="panel-jobs">
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h4 class="fw-bold text-main mb-1">Active Career Postings</h4>
+              <p class="text-muted fs-7 mb-0">Publish and manage career postings shown in index and lists.</p>
+            </div>
+            <button class="btn btn-premium-primary fs-7" data-bs-toggle="modal" data-bs-target="#addJobModal"><i class="bi bi-plus me-1"></i>Post New Job</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover table-premium border-0 m-0">
+              <thead>
+                <tr>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th class="text-center">Applicants</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-jobs-table">
+                <!-- Dynamic rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. ANALYTICS EXTENSION PANEL -->
+      <div class="dashboard-view-panel d-none" id="panel-analytics">
+        <div class="glass-card p-4 text-center">
+          <i class="bi bi-bar-chart-line display-1 text-primary d-block mb-3"></i>
+          <h4 class="fw-bold">Advanced Recruiting Analytics</h4>
+          <p class="text-muted">Real-time candidate indexing, funnel optimization models, and search statistics are computed automatically.</p>
+          <div class="row g-3 justify-content-center mt-3">
+            <div class="col-sm-4"><div class="p-3 bg-light bg-opacity-10 rounded border border-color"><div class="text-primary fw-extrabold fs-4">94%</div><div class="text-muted fs-8">Direct Funnel Conversions</div></div></div>
+            <div class="col-sm-4"><div class="p-3 bg-light bg-opacity-10 rounded border border-color"><div class="text-primary fw-extrabold fs-4">2.4 days</div><div class="text-muted fs-8">Average Contact Cycle</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. REPORTS PANEL -->
+      <div class="dashboard-view-panel d-none" id="panel-reports">
+        <div class="glass-card p-4 max-width-lg mx-auto text-center">
+          <i class="bi bi-file-earmark-arrow-down display-3 text-secondary d-block mb-3"></i>
+          <h4 class="fw-bold">Export Audit Summaries</h4>
+          <p class="text-muted">Generate spreadsheet CSV files containing active lists and applicants metrics.</p>
+          <div class="d-flex gap-3 justify-content-center mt-4 flex-wrap">
+            <button class="btn btn-premium-primary" onclick="alert('Applications metrics CSV file downloaded successfully!');"><i class="bi bi-filetype-csv me-2"></i>Applications CSV</button>
+            <button class="btn btn-premium-secondary" onclick="alert('Audit logs PDF report generated successfully!');"><i class="bi bi-file-pdf me-2"></i>Logs PDF Report</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. SETTINGS PANEL -->
+      <div class="dashboard-view-panel d-none" id="panel-settings">
+        <div class="glass-card p-4 p-sm-5 max-width-lg mx-auto">
+          <h4 class="fw-bold mb-2 text-main">System Preferences</h4>
+          <p class="text-muted mb-4">Coordinate developer APIs and global settings.</p>
+          <hr class="border-color mb-4">
+          
+          <div class="d-flex flex-column gap-3.5">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="adminAuditLogs" checked>
+              <label class="form-check-label text-main fw-semibold fs-7" for="adminAuditLogs">Save Audit Trace Logs</label>
+              <span class="text-muted d-block fs-8">Write detailed user deletion and posting traces to timeline.</span>
+            </div>
+            
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="adminAutoLock">
+              <label class="form-check-label text-main fw-semibold fs-7" for="adminAutoLock">Lock Pending Registrations</label>
+              <span class="text-muted d-block fs-8">Force admin approval before candidate listings matching index.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Add User Modal -->
+  <div class="modal fade glass-modal" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h4 class="modal-title fw-bold text-main" id="addUserModalLabel">Add Mock User</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="addUserForm" class="needs-validation" novalidate>
+          <div class="modal-body py-4">
+            <div class="mb-3">
+              <label for="user-name-input" class="form-label fw-semibold text-main fs-7">Full Name</label>
+              <input type="text" class="form-control bg-transparent border-color text-main" id="user-name-input" required placeholder="Liam O'Connor">
+              <div class="invalid-feedback">Name is required.</div>
+            </div>
+            <div class="mb-3">
+              <label for="user-email-input" class="form-label fw-semibold text-main fs-7">Email Address</label>
+              <input type="email" class="form-control bg-transparent border-color text-main" id="user-email-input" required placeholder="liam@gmail.com">
+              <div class="invalid-feedback">Enter a valid email address.</div>
+            </div>
+            <div class="mb-0">
+              <label for="user-role-input" class="form-label fw-semibold text-main fs-7">Access Role</label>
+              <select class="form-select bg-transparent border-color text-main" id="user-role-input" required>
+                <option value="Candidate">Candidate</option>
+                <option value="Employer">Employer</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer border-0 pt-0">
+            <button type="button" class="btn btn-premium-secondary py-2 fs-7" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-premium-primary py-2 fs-7">Add User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Job Modal -->
+  <div class="modal fade glass-modal" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h4 class="modal-title fw-bold text-main" id="addJobModalLabel">Publish Job Listing</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="addJobForm" class="needs-validation" novalidate>
+          <div class="modal-body py-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="job-title-input" class="form-label fw-semibold text-main fs-7">Job Title</label>
+                <input type="text" class="form-control bg-transparent border-color text-main" id="job-title-input" required placeholder="Senior backend developer">
+                <div class="invalid-feedback">Title is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="job-company-input" class="form-label fw-semibold text-main fs-7">Company Name</label>
+                <input type="text" class="form-control bg-transparent border-color text-main" id="job-company-input" required placeholder="Apple">
+                <div class="invalid-feedback">Company name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="job-location-input" class="form-label fw-semibold text-main fs-7">Location</label>
+                <input type="text" class="form-control bg-transparent border-color text-main" id="job-location-input" required placeholder="Remote / Cupertino, CA">
+                <div class="invalid-feedback">Location is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="job-salary-input" class="form-label fw-semibold text-main fs-7">Annual Compensation (USD)</label>
+                <input type="number" class="form-control bg-transparent border-color text-main" id="job-salary-input" required placeholder="140000" min="40000" max="300000">
+                <div class="invalid-feedback">Salary between $40k and $300k is required.</div>
+              </div>
+              <div class="col-md-4">
+                <label for="job-exp-input" class="form-label fw-semibold text-main fs-7">Experience limit (Years)</label>
+                <input type="number" class="form-control bg-transparent border-color text-main" id="job-exp-input" required placeholder="3" min="0" max="15">
+                <div class="invalid-feedback">Experience required.</div>
+              </div>
+              <div class="col-md-4">
+                <label for="job-type-input" class="form-label fw-semibold text-main fs-7">Contract Type</label>
+                <select class="form-select bg-transparent border-color text-main" id="job-type-input" required>
+                  <option value="Full-time">Full-time</option>
+                  <option value="Part-time">Part-time</option>
+                  <option value="Remote">Remote</option>
+                  <option value="Contract">Contract</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="job-cat-input" class="form-label fw-semibold text-main fs-7">Category Category</label>
+                <select class="form-select bg-transparent border-color text-main" id="job-cat-input" required>
+                  <option value="tech">Technology & Software</option>
+                  <option value="design">Design & Creative</option>
+                  <option value="marketing">Marketing & Sales</option>
+                  <option value="finance">Finance & Accounting</option>
+                  <option value="pm">Product Management</option>
+                  <option value="hr">Human Resources</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="job-desc-input" class="form-label fw-semibold text-main fs-7">Brief Overview / Description</label>
+                <textarea class="form-control bg-transparent border-color text-main" id="job-desc-input" rows="4" required placeholder="Outline the primary core features of the role..."></textarea>
+                <div class="invalid-feedback">Description required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0 pt-0">
+            <button type="button" class="btn btn-premium-secondary py-2 fs-7" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-premium-primary py-2 fs-7">Publish Listing</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
